@@ -1,0 +1,50 @@
+Here's a minimal HTML template to test your deployed app with a captcha solver. Since you provided an image as a base64-encoded string, I'll include it as an embedded image in the HTML for reference. Feel free to modify the form or script as needed for your specific captcha solver integration.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Captcha Solver Test</title>
+</head>
+<body>
+    <h1>Captcha Solver Test</h1>
+    <!-- Display the sample image provided -->
+    <img src="data:image/png;base64,c2FtcGxlIGltYWdlIGJ5dGVz" alt="Sample Image" />
+
+    <!-- Simple form to input captcha answer -->
+    <form id="captchaForm" action="/submit" method="POST">
+        <label for="captchaInput">Enter captcha:</label>
+        <input type="text" id="captchaInput" name="captcha" required />
+        <button type="submit">Solve</button>
+    </form>
+
+    <script>
+        // Example: You can add logic here to interact with your captcha solver
+        document.getElementById('captchaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const captchaValue = document.getElementById('captchaInput').value;
+
+            // Example POST request to your app's endpoint
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ captcha: captchaValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Response: ' + data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+```
+
+This code displays the provided image, includes a form for captcha input, and adds a simple JavaScript to send the input to your backend. Adjust the `/submit` endpoint and response handling as needed for your app.
